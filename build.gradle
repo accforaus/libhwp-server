@@ -1,0 +1,55 @@
+plugins {
+	id 'org.springframework.boot' version '2.1.4.RELEASE'
+	id 'org.jetbrains.kotlin.jvm' version '1.2.71'
+	id 'org.jetbrains.kotlin.plugin.spring' version '1.2.71'
+}
+
+apply plugin: 'io.spring.dependency-management'
+
+group = 'com.accforaus.libhwp'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+	maven { url "https://repository.apache.org/content/repositories/snapshots/" }
+}
+
+dependencies {
+	compile group: 'org.apache.poi', name: 'poi', version: '4.1.0'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'com.fasterxml.jackson.module:jackson-module-kotlin'
+	implementation 'org.jetbrains.kotlin:kotlin-reflect'
+	implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
+	compileOnly 'org.projectlombok:lombok'
+	runtimeOnly 'org.springframework.boot:spring-boot-devtools'
+	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+	annotationProcessor 'org.projectlombok:lombok'
+	compile files('lib/libhwp-0.6.9.jar')
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	compile 'org.apache.commons:commons-imaging:1.0-SNAPSHOT'
+	compile group: 'com.google.code.gson', name: 'gson', version: '2.8.5'
+	compile group: 'org.apache.commons', name: 'commons-compress', version: '1.18'
+	compile group: 'org.apache.poi', name: 'poi-ooxml', version: '4.1.0'
+	compile group: 'org.apache.poi', name: 'poi-scratchpad', version: '4.1.0'
+}
+
+compileKotlin {
+	kotlinOptions {
+		freeCompilerArgs = ['-Xjsr305=strict']
+		jvmTarget = '1.8'
+	}
+}
+
+compileTestKotlin {
+	kotlinOptions {
+		freeCompilerArgs = ['-Xjsr305=strict']
+		jvmTarget = '1.8'
+	}
+}
